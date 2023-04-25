@@ -151,6 +151,9 @@ public class ResumeGUI3 extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e) {
+	    String[] a;
+	    int l = 0;
+	    String b = "";
     	if (e.getSource() == b4) {
             // Set the text of the text field
         	b1.setVisible(true);
@@ -163,16 +166,25 @@ public class ResumeGUI3 extends JFrame implements ActionListener{
         } 
     	if (e.getSource() == b1) {
             // Set the text of the text field
-    		
-    		summaryField.setText(summaryField.getText()+b1.getText());
+    		a = summaryField.getTest().split(" ");
+		l = a.length;
+		a[l-1] = b1.getText();
+		b = String.join(" ",a);
+    		summaryField.setText(b);
         }
     	if (e.getSource() == b2) {
-            // Set the text of the text field
-    		summaryField.setText(summaryField.getText()+b2.getText());
+            // Set the text of the text fielda = summaryField.getTest().split(" ");
+		l = a.length;
+		a[l-1] = b2.getText();
+		b = String.join(" ",a);
+    		summaryField.setText(b);
         }
     	if (e.getSource() == b3) {
-            // Set the text of the text field
-    		summaryField.setText(summaryField.getText()+b3.getText());
+            // Set the text of the text fielda = summaryField.getTest().split(" ");
+		l = a.length;
+		a[l-1] = b3.getText();
+		b = String.join(" ",a);
+    		summaryField.setText(b);
         }
         if (e.getSource() == createButton) {
             // Get the form data
