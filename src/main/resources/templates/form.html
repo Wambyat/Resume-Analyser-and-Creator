@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Resume</title>
+</head>
+<body>
+    <h1>Create New Resume</h1>
+    <form method="post" th:action="@{/resumes}">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone"><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br>
+
+        <label for="degree">Degree:</label>
+        <input type="text" id="degree" name="degree"><br>
+
+        <label for="institution">Institution:</label>
+        <input type="text" id="institution" name="institution"><br>
+
+        <label for="gpa">GPA:</label>
+        <input type="text" id="gpa" name="gpa"><br>
+
+        <label for="graduationDate">Graduation Date:</label>
+        <input type="date" id="graduationDate" name="graduationDate"><br>
+
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position"><br>
+
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company"><br>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate"><br>
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate"><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br>
+
+        <input type="submit" value="Create Resume">
+    </form>
+</body>
+</html>
