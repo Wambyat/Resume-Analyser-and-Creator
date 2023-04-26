@@ -166,21 +166,23 @@ public class ResumeGUI3 extends JFrame implements ActionListener{
         } 
     	if (e.getSource() == b1) {
             // Set the text of the text field
-    		a = summaryField.getTest().split(" ");
+    		a = summaryField.getText().split(" ");
 		l = a.length;
 		a[l-1] = b1.getText();
 		b = String.join(" ",a);
     		summaryField.setText(b);
         }
     	if (e.getSource() == b2) {
-            // Set the text of the text fielda = summaryField.getTest().split(" ");
+            // Set the text of the text field
+    		a = summaryField.getText().split(" ");
 		l = a.length;
 		a[l-1] = b2.getText();
 		b = String.join(" ",a);
     		summaryField.setText(b);
         }
     	if (e.getSource() == b3) {
-            // Set the text of the text fielda = summaryField.getTest().split(" ");
+            // Set the text of the text field
+    		a = summaryField.getText().split(" ");
 		l = a.length;
 		a[l-1] = b3.getText();
 		b = String.join(" ",a);
