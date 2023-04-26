@@ -5,7 +5,7 @@ import com.example.demo.predictivekeyboard;
 
 public class tester
 {
-	/*
+	
     public static void main(String args[]) throws IOException
     {
     	predictivekeyboard keyboard = new predictivekeyboard();
@@ -13,5 +13,5 @@ public class tester
         for (String suggestion : suggestions) {
             System.out.println(suggestion);
         }
-    }*/
+    }
 }
