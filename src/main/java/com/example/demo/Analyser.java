@@ -4,7 +4,6 @@ import com.example.demo.repository.EngineNLP;
 
 import java.io.IOException;
 import java.util.*;
-import com.example.demo.model.*;
 
 
 //Move the analysis logic from engine nlp to here.
@@ -17,12 +16,14 @@ public class Analyser {
 	Analyser(String prof) throws IOException {
 		
 		//This is the database part. Fix this.
+		/*
 		ResumeService rs = new ResumeService();
-		List<resume> res = rs.search(prof);
+		List<resume> res = rs.search(prof);*/
 		String masterAll = "";
+		/*
 		for (resume r : res) {
 			masterAll += resumeToString(r);
-		}
+		}*/
 		
 		
 		EngineNLP en = new EngineNLP();
