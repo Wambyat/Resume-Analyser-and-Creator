@@ -1,24 +1,6 @@
-package com.example.resume.gui;
+package com.example.demo;
 
 import javax.swing.*;
-
-import org.apache.catalina.core.ApplicationContext;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-
-import com.example.resume.Controller.ResumeController;
-import com.example.resume.Service.ResumeService;
-import com.example.resume.model.resume;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -39,16 +21,11 @@ import java.util.List;
 //import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 //import org.apache.pdfbox.text.PDFTextStripper;
 
-@SpringBootApplication
-@Controller
 @SuppressWarnings("serial")
-@ComponentScan("com.example")
 public class ResumeGUI3 extends JFrame implements ActionListener {
 
 //    @Autowired
 //    private ResumeService service;
-
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private JLabel nameLabel, phoneLabel, summaryLabel, skill1Label, skill2Label, skill3Label;
@@ -192,43 +169,11 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(ResumeGUI3.this, "Resume saved successfully!");
 
 			// Create the resume based on the selected view
+			@SuppressWarnings("unused")
 			String selectedView = (String) viewComboBox.getSelectedItem();
 
-			if (selectedView.equals("View 1")) {
-				String resume = "";
-				resume += "Name: " + name + "\n";
-				resume += "Phone: " + phone + "\n";
-//                resume += "Education: " + education + "\n";
-//                resume += "Experience: " + experience + "\n";
-				resume += "Skill-1: " + skill1 + "\n";
-				resume += "Skill-2: " + skill2 + "\n";
-				resume += "Skill-3: " + skill3 + "\n";
-				resume += "Summary: " + summary + "\n";
-
-			} else if (selectedView.equals("View 2")) {
-				String resume = "";
-				resume += "Name: " + name + "\n";
-//                resume += "Education: " + education + "\n\n";
-//                resume += "Experience:\n" + experience.replace("\n", "\n\t") + "\n\n";
-				resume += "Summary:\n" + summary;
-
-			}
 		}
 		
-		
-		searchButton = new JButton("Search");
-		searchButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e1) {
-				String searchTerm = searchBar.getText();
-				
-				
-			}
-		});
-		
-		
-		
-		
-
 		setVisible(true);
 
 	}
@@ -250,7 +195,7 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 				ResultSet res1 = stmt1.executeQuery();
 
 				int id = Integer.parseInt(res1.getString("id"));
-				resu.setId(id);
+				resu.setId((long)id);
 				resu.setName(res1.getString("name"));
 				resu.setPhone(res1.getString("phone"));
 				resu.setSummary(res1.getString("summary"));
