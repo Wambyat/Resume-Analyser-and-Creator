@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.*;
 import com.example.demo.model.*;
 
+
+//Move the analysis logic from engine nlp to here.
 public class Analyser {
 	TokenRes topTen;
 	String comment;
