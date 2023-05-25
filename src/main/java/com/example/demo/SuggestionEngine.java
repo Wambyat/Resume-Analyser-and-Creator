@@ -1,14 +1,4 @@
 package com.example.demo;
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.Loader;
-
-
 import java.util.*;
 
 public class SuggestionEngine {
@@ -259,7 +249,6 @@ public class SuggestionEngine {
     public List<String> getSuggestions(String prefix, int n )
     {
         n =3;
-    	int x = n;
     	if (prefix == null)
     	{
     		return new ArrayList<String>();

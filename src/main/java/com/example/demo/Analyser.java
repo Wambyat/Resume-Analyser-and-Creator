@@ -4,7 +4,6 @@ import com.example.demo.repository.EngineNLP;
 
 import java.io.IOException;
 import java.util.*;
-import com.example.demo.model.*;
 
 
 //Move the analysis logic from engine nlp to here.
@@ -15,9 +14,14 @@ public class Analyser {
 
 	// Make a constructor that does "training"
 	Analyser(String prof) throws IOException {
+		
+		//Add the database things here
+		/*
 		ResumeService rs = new ResumeService();
 		List<resume> res = rs.search(prof);
+		*/
 		String masterAll = "";
+		/*
 		for (resume r : res) {
 			masterAll += r.getSummary();
 			masterAll += " ";
@@ -26,7 +30,7 @@ public class Analyser {
 			masterAll += r.getSkill2();
 			masterAll += " ";
 			masterAll += r.getSkill3();
-		}
+		}*/
 		
 		
 		EngineNLP en = new EngineNLP();

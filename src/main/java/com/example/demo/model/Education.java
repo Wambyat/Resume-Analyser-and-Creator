@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class Education {
 	private String Degree;

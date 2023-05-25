@@ -7,6 +7,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
     private JButton myButton1,myButton2,myButton3;
     private JTextField myTextArea;
+    static final long serialVersionUID = 0;
 
     public MyFrame() {
         // Set up the JFrame
