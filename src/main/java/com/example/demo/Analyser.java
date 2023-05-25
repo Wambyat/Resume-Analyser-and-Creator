@@ -16,7 +16,6 @@ public class Analyser {
 		ResumeService rs = new ResumeService();
 		List<resume> res = rs.search(prof);
 		String masterAll = "";
-		String skills = "";
 		for (resume r : res) {
 			masterAll += r.getSummary();
 			masterAll += " ";
@@ -41,18 +40,36 @@ public class Analyser {
 
 	}
 
+	public static String resumeToString(resume r)
+	{
+		String newAll = "";
+		newAll += r.getSummary();
+		newAll += " ";
+		newAll += r.getSkill1();
+		newAll += " ";
+		newAll += r.getSkill2();
+		newAll += " ";
+		newAll += r.getSkill3();
+		
+		return newAll;
+	}
 
 	public String getComments(resume r) throws IOException {
 		
 		EngineNLP en = new EngineNLP();
 		
-		return en.getComments(r);
+		String newAll = resumeToString(r);
+		
+		return en.getComments(newAll);
 	}
 
 	public float getScore(resume r) throws IOException {
 		
 		EngineNLP en = new EngineNLP();
-		return en.getScore(r);
+		
+		String newAll = resumeToString(r);
+		
+		return en.getScore(newAll);
 	}
 }
 

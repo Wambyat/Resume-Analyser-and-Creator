@@ -1,17 +1,14 @@
 package com.example.demo.repository;
 
-import com.example.demo.Analyser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.demo.repository.TokenRes;
 import com.example.demo.model.TagMaker;
-import com.example.demo.model.resume;
 
-//this is a facade for the analyser to tag maker. 
+//this is a facade for the analyzer to tag maker. 
 public class EngineNLP {
 
 	public ArrayList<String> getTags(String choice) throws IOException {
@@ -20,8 +17,8 @@ public class EngineNLP {
 	}
 	
 	
-	// This gives top 10 words used in the given thingy
-	// It also return freq
+	// This gives top 10 words used in the given Array
+	// It also return frequency
 
 	public TokenRes topTenGiver(ArrayList<String> allWords) {
 		int lenOfTrained = allWords.size();
@@ -49,19 +46,9 @@ public class EngineNLP {
 		return new TokenRes(thang, top10List);
 	}
 	
-public String getComments(resume r) throws IOException {
+public String getComments(String newAll) throws IOException {
 		
-		EngineNLP en = new EngineNLP();
-		String newAll = "";
-		newAll += r.getSummary();
-		newAll += " ";
-		newAll += r.getSkill1();
-		newAll += " ";
-		newAll += r.getSkill2();
-		newAll += " ";
-		newAll += r.getSkill3();
-		
-		
+		EngineNLP en = new EngineNLP();	
 		
 		ArrayList<String> tok_given = en.getTags(newAll);
 		ArrayList<String> allWords_given = new ArrayList<String>();
@@ -70,15 +57,19 @@ public String getComments(resume r) throws IOException {
 		}
 
 		TokenRes top10List_given = en.topTenGiver(allWords_given);
-
+		
+		//Gotta add the database connection here. 
+		//topTen is the general topTen based on profession
+		TokenRes topTen = en.topTenGiver(allWords_given);
+		
+		
 		Map<String, Float> topFreq = topTen.getFreq();
 		ArrayList<String> topTenn = topTen.getTen();
 		Map<String, Float> topFreq_new = top10List_given.getFreq();
-		ArrayList<String> topTen_new = top10List_given.getTen();
+		//ArrayList<String> topTen_new = top10List_given.getTen();
 
 		// ITERATE TO SEE RES
 		
-		float score = 0.0f;
 		ArrayList<String> badUse = new ArrayList<String>();
 		ArrayList<String> noUse = new ArrayList<String>();
 		ArrayList<String> highUse = new ArrayList<String>();
@@ -90,15 +81,12 @@ public String getComments(resume r) throws IOException {
 				noUse.add(a);
 			} else if (topFreq_new.get(a) / topFreq.get(a) > 1.1) {
 				System.out.println(topFreq_new.get(a) / topFreq.get(a));
-				score += 0.4f;
 				highUse.add(a);
 			} else if (topFreq_new.get(a) / topFreq.get(a) > 0.9) {
 				System.out.println(topFreq_new.get(a) / topFreq.get(a));
-				score += 1.0f;
 				goodUse.add(a);
 			} else {
 				System.out.println(topFreq_new.get(a) / topFreq.get(a));
-				score += 0.3f;
 				badUse.add(a);
 			}
 		}
@@ -113,17 +101,9 @@ public String getComments(resume r) throws IOException {
 		return comment;
 	}
 
-	public float getScore(resume r) throws IOException {
+	public float getScore(String newAll) throws IOException {
 		
 		EngineNLP en = new EngineNLP();
-		String newAll = "";
-		newAll += r.getSummary();
-		newAll += " ";
-		newAll += r.getSkill1();
-		newAll += " ";
-		newAll += r.getSkill2();
-		newAll += " ";
-		newAll += r.getSkill3();
 		
 		ArrayList<String> tok_given = en.getTags(newAll);
 		ArrayList<String> allWords_given = new ArrayList<String>();
@@ -132,11 +112,15 @@ public String getComments(resume r) throws IOException {
 		}
 
 		TokenRes top10List_given = en.topTenGiver(allWords_given);
-
+		
+		//Gotta add the database connection here. 
+		//topTen is the general topTen based on profession
+				TokenRes topTen = en.topTenGiver(allWords_given);
+		
 		Map<String, Float> topFreq = topTen.getFreq();
 		ArrayList<String> topTenn = topTen.getTen();
 		Map<String, Float> topFreq_new = top10List_given.getFreq();
-		ArrayList<String> topTen_new = top10List_given.getTen();
+		//ArrayList<String> topTen_new = top10List_given.getTen();
 
 		// ITERATE TO SEE RES
 		

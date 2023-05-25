@@ -14,90 +14,15 @@ import opennlp.tools.stemmer.snowball.SnowballStemmer;
 public class TagMaker {
 	public ArrayList<String> getTags(String choice) throws IOException {
 		
-		String summery = "";
+		String summery = choice;
 		
 		SnowballStemmer st = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH);
 		
-		/*
-		System.out.println("THIS IS THE STEMMING PART");
-		System.out.println(st.stem("words"));
-		*/
-		
-		if(choice.equals("a"))
-		{
-			summery = "Teacher, XYZ Elementary School, Anytown, USA, 20XX - Present\r\n"
-					+ "- Plan and implement engaging lesson plans for a diverse group of students in grades 1-5\r\n"
-					+ "- Incorporate technology and hands-on learning activities to keep students engaged\r\n"
-					+ "- Collaborate with colleagues to develop and implement school-wide initiatives\r\n"
-					+ "- Communicate regularly with parents about student progress and behavior\r\n" + "\r\n"
-					+ "English Teacher, Anytown High School, Anytown, USA, 20XX - 20XX\r\n"
-					+ "- Taught a variety of literature, writing, and language arts courses to high school students\r\n"
-					+ "- Developed and implemented engaging lesson plans that aligned with state standards\r\n"
-					+ "- Provided individualized instruction and support to struggling students\r\n"
-					+ "- Chaperoned school events and participated in extracurricular activities with students\r\n" + "\r\n"
-					+ "Skills:\r\n" + "- Proficient in Microsoft Office and Google Suite\r\n"
-					+ "- Familiar with classroom technology, including interactive whiteboards and educational apps\r\n"
-					+ "- Strong communication skills, both written and verbal\r\n"
-					+ "- Ability to collaborate with colleagues and work as part of a team\r\n"
-					+ "- Passion for creating a positive learning environment and helping students succeed";
-		}
-		
-		else if(choice.equals("b"))
-		{
-			summery = "Develop and implement engaging and effective lesson plans aligned with state standards\r\n"
-					+ "Utilize technology tools to enhance student learning and engagement\r\n"
-					+ "Incorporate differentiated instruction to meet the needs of diverse learners\r\n"
-					+ "Manage classroom behavior using positive reinforcement and behavior modification strategies\r\n"
-					+ "Collaborate with colleagues and parents to support student success\r\n"
-					+ "Student Teacher\r\n"
-					+ "ABC Elementary School, Anytown, USA\r\n"
-					+ "January 2018 - May 2018\r\n"
-					+ "\r\n"
-					+ "Observed and assisted lead teacher in the development and implementation of lesson plans\r\n"
-					+ "Planned and taught lessons in math, reading, and social studies\r\n"
-					+ "Conducted small group instruction and provided individualized support to struggling learners\r\n"
-					+ "Utilized educational technology tools to enhance student engagement\r\n"
-					+ "Collaborated with lead teacher to plan and execute parent-teacher conferences\r\n"
-					+ "Certifications:\r\n"
-					+ "\r\n"
-					+ "State Teaching Certification, Anytown, USA (2018)\r\n"
-					+ "CPR and First Aid Certification (current)";
-		}
-		
-		else if (choice.equals("c"))
-		{
-			summery = "Develop and implement rigorous and engaging lesson plans aligned with state standards\r\n"
-					+ "Utilize technology tools to enhance student learning and engagement\r\n"
-					+ "Incorporate student-centered learning strategies to foster critical thinking and problem-solving skills\r\n"
-					+ "Manage classroom behavior using positive reinforcement and restorative justice practices\r\n"
-					+ "Collaborate with colleagues and parents to support student success\r\n"
-					+ "Student Teacher\r\n"
-					+ "Smalltown Elementary School, Smalltown, USA\r\n"
-					+ "January 2018 - May 2018\r\n"
-					+ "\r\n"
-					+ "Assisted lead teacher in the development and implementation of lesson plans\r\n"
-					+ "Planned and taught lessons in math, reading, and social studies\r\n"
-					+ "Conducted small group instruction and provided individualized support to struggling learners\r\n"
-					+ "Utilized educational technology tools to enhance student engagement\r\n"
-					+ "Collaborated with lead teacher to plan and execute parent-teacher conferences\r\n"
-					+ "Certifications:\r\n"
-					+ "\r\n"
-					+ "State Teaching Certification, Smalltown, USA (2018)\r\n"
-					+ "Google for Education Certified Educator (current)";
-		}
-		
-		else
-		{
-			summery = choice;
-		}
-
-		// This removes all punctuation and all words with numbers and numbers
-		// themselves.
+		// This removes all punctuation and all words with numbers and all only numbers.
 		summery = summery.replaceAll("\\p{Punct}", "");
 		summery = summery.replaceAll("\\b\\w*\\d+\\w*\\b", "");
 
-		// This is a list of stop words. After that they will all be removed from the
-		// input
+		// This is a list of stop words. Probably better to import from a file.
 		String[] stopWords = new String[] { "a", "able", "about", "above", "according", "accordingly", "across",
 				"actually", "after", "afterwards", "again", "against", "all", "allow", "allows", "almost", "alone",
 				"along", "already", "also", "although", "always", "am", "among", "amongst", "an", "and", "another",
@@ -153,29 +78,27 @@ public class TagMaker {
 				"within", "without", "wonder", "won't", "would", "wouldn't", "x", "y", "yes", "yet", "you", "you'd",
 				"you'll", "your", "you're", "yours", "yourself", "yourselves", "you've", "z", "zero" };
 
+		// This removes all the stop-words.
 		String stopWordsPattern = String.join("|", stopWords);
 		Pattern pattern = Pattern.compile("\\b(?:" + stopWordsPattern + ")\\b\\s*", Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(summery);
 		summery = matcher.replaceAll("");
 
 		// Loading the Tokenizer model
-		InputStream inputStream = new FileInputStream("C:/OpenNLP_models/en-token.bin");
+		InputStream inputStream = new FileInputStream("en-token.bin");
 		TokenizerModel tokenModel = new TokenizerModel(inputStream);
-
-		// Instantiating the TokenizerME class
 		TokenizerME tokenizer = new TokenizerME(tokenModel);
 
-		// Tokenizing the given raw text
+		// Tokenizing the given text
 		String tokens[] = tokenizer.tokenize(summery);
 		
+		//Taking the above tokens and stemming them (This is removing post-fixes like "ing" , "s" etc.
 		ArrayList<String> tok = new ArrayList<String>();
 		String b = "";
 		for (String a : tokens) {
 			b = (String) st.stem(a); 
 			tok.add(b.toLowerCase());
 		}
-		
-		
 		
 		return tok;
 	}
