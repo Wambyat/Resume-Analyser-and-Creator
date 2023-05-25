@@ -1,12 +1,8 @@
 package com.example.demo.model;
-import jakarta.persistence.*;
 import java.util.*;
 
 
-@Entity
 public class resume {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String Name ;
 	private String Phone ;
