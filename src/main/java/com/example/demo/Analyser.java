@@ -4,33 +4,25 @@ import com.example.demo.repository.EngineNLP;
 
 import java.io.IOException;
 import java.util.*;
+import com.example.demo.model.*;
 
 
 //Move the analysis logic from engine nlp to here.
 public class Analyser {
-	TokenRes topTen;
+	static TokenRes topTen;
 	String comment;
 	float score;
 
-	// Make a constructor that does "training"
+	// This trains the NLP model.
 	Analyser(String prof) throws IOException {
 		
-		//Add the database things here
-		/*
+		//This is the database part. Fix this.
 		ResumeService rs = new ResumeService();
 		List<resume> res = rs.search(prof);
-		*/
 		String masterAll = "";
-		/*
 		for (resume r : res) {
-			masterAll += r.getSummary();
-			masterAll += " ";
-			masterAll += r.getSkill1();
-			masterAll += " ";
-			masterAll += r.getSkill2();
-			masterAll += " ";
-			masterAll += r.getSkill3();
-		}*/
+			masterAll += resumeToString(r);
+		}
 		
 		
 		EngineNLP en = new EngineNLP();
@@ -42,10 +34,10 @@ public class Analyser {
 			allWords.add(a);
 		}
 
-		this.topTen = en.topTenGiver(allWords);
+		topTen = en.topTenGiver(allWords);
 
 	}
-
+	
 	public static String resumeToString(resume r)
 	{
 		String newAll = "";
@@ -66,7 +58,52 @@ public class Analyser {
 		
 		String newAll = resumeToString(r);
 		
-		return en.getComments(newAll);
+		ArrayList<String> tok_given = en.getTags(newAll);
+		ArrayList<String> allWords_given = new ArrayList<String>();
+		for (String d : tok_given) {
+			allWords_given.add(d);
+		}
+
+		TokenRes top10List_given = en.topTenGiver(allWords_given);
+		
+		
+		Map<String, Float> topFreq = topTen.getFreq();
+		ArrayList<String> topTenn = topTen.getTen();
+		Map<String, Float> topFreq_new = top10List_given.getFreq();
+		//ArrayList<String> topTen_new = top10List_given.getTen();
+
+		// ITERATE TO SEE RES
+		
+		ArrayList<String> badUse = new ArrayList<String>();
+		ArrayList<String> noUse = new ArrayList<String>();
+		ArrayList<String> highUse = new ArrayList<String>();
+		ArrayList<String> goodUse = new ArrayList<String>();
+
+		for (String a : topTenn) {
+			
+			if (topFreq_new.get(a) == null) {
+				noUse.add(a);
+			} else if (topFreq_new.get(a) / topFreq.get(a) > 1.1) {
+				System.out.println(topFreq_new.get(a) / topFreq.get(a));
+				highUse.add(a);
+			} else if (topFreq_new.get(a) / topFreq.get(a) > 0.9) {
+				System.out.println(topFreq_new.get(a) / topFreq.get(a));
+				goodUse.add(a);
+			} else {
+				System.out.println(topFreq_new.get(a) / topFreq.get(a));
+				badUse.add(a);
+			}
+		}
+		
+		String comment = "";
+		
+		comment = "You've used the words " + goodUse.toString().replaceAll("[\\[\\]]","")+" a good amount.\n";
+		comment += "You should use " + badUse.toString().replaceAll("[\\[\\]]","")+" more.\n";
+		comment += "Meanwhile try using " + highUse.toString().replaceAll("[\\[\\]]","")+" less.\n";
+		comment += "To improve the resume even more try using " + noUse.toString().replaceAll("[\\[\\]]","")+".\n";	
+		
+		return comment;
+		
 	}
 
 	public float getScore(resume r) throws IOException {
@@ -75,7 +112,38 @@ public class Analyser {
 		
 		String newAll = resumeToString(r);
 		
-		return en.getScore(newAll);
+		ArrayList<String> tok_given = en.getTags(newAll);
+		ArrayList<String> allWords_given = new ArrayList<String>();
+		for (String d : tok_given) {
+			allWords_given.add(d);
+		}
+
+		TokenRes top10List_given = en.topTenGiver(allWords_given);
+		
+		Map<String, Float> topFreq = topTen.getFreq();
+		ArrayList<String> topTenn = topTen.getTen();
+		Map<String, Float> topFreq_new = top10List_given.getFreq();
+		//ArrayList<String> topTen_new = top10List_given.getTen();
+
+		// ITERATE TO SEE RES
+		
+		float score = 0.0f;
+
+		for (String a : topTenn) {
+			
+			if (topFreq_new.get(a) == null) {
+				score += 0.0f;
+			} else if (topFreq_new.get(a) / topFreq.get(a) > 1.1) {
+				score += 0.4f;
+			} else if (topFreq_new.get(a) / topFreq.get(a) > 0.9) {
+				score += 1.0f;
+			} else {
+				score += 0.3f;
+			}
+		}
+		
+		
+		return score;
 	}
 }
 
