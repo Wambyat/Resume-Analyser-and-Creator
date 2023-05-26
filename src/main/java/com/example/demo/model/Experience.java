@@ -9,47 +9,70 @@ public class Experience {
 	private Date endDate;
 	private String description;
 	
-	public Experience() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Experience(String Title, String Company,Date startDate,Date endDate,String description) {
-//		super();
-		this.Title = Title;
-		this.Company = Company;
-		this.startDate= startDate;
-		this.endDate = endDate ;
-		this.description =description;
-	}
-	public void setTitle(String Title) {
-		this.Title=Title;
-	}
-	public String getTitle() {
-		return Title;
-	}
-	public void getCompany(String Company) {
-		this.Company = Company;
-	}
-	public String getCompany() {
-		return Company;
-	}
-	public void setstartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public Date getstartDate() {
-		return startDate;
-	}
-	public void setendDate(Date endDate) {
-		this.endDate = endDate;
-	}
-	public Date getendDate() {
-		return endDate;
-	}
-	public void getdescription(String desc) {
-		this.description = desc;
-	}
-	public String description() {
-		return description;
+	public Experience() 
+	{
+		this.setTitle("Intern");
+		this.setCompany("Company money");
+		this.setStart(new Date());
+		this.setEnd(new Date());
+		this.setDescription("Donkey work");
 	}
 	
+	public Experience(String Title, String Company,Date startDate,Date endDate,String description) 
+	{
+		this.setTitle(Title);
+		this.setCompany(Company);
+		this.setStart(startDate);
+		this.setEnd(endDate) ;
+		this.setDescription(description);
+	}
+
+	public String getTitle() 
+	{
+		return Title;
+	}
+	public void setTitle(String title) 
+	{
+		this.Title = title;
+	}
+
+	public String getCompany() 
+	{
+		return Company;
+	}
+	public void setCompany(String company) 
+	{
+		this.Company = company;
+	}
+
+	public Date getStart() 
+	{
+		return startDate;
+	}
+	public void setStart(Date startDate) 
+	{
+		this.startDate = startDate;
+	}
+
+	public Date getEnd() {
+		return endDate;
+	}
+	public void setEnd(Date endDate) 
+	{
+		this.endDate = endDate;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+	public void setDescription(String description) 
+	{
+		this.description = description;
+	}
+	
+	public String toString()
+	{
+		return "Worked at "+Company+" as a "+Title+" from "+startDate+" to "+endDate+". "+description;
+	}
 }

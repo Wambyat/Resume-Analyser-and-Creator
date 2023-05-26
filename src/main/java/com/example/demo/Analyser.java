@@ -1,7 +1,7 @@
 package com.example.demo;
 import com.example.demo.repository.TokenRes;
 import com.example.demo.repository.EngineNLP;
-
+import com.example.demo.model.resume;
 import java.io.IOException;
 import java.util.*;
 
@@ -44,11 +44,7 @@ public class Analyser {
 		String newAll = "";
 		newAll += r.getSummary();
 		newAll += " ";
-		newAll += r.getSkill1();
-		newAll += " ";
-		newAll += r.getSkill2();
-		newAll += " ";
-		newAll += r.getSkill3();
+		newAll += r.getSkills();
 		
 		return newAll;
 	}
