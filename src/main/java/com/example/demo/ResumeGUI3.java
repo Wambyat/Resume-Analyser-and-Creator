@@ -12,14 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.example.demo.Analyser;
-//import javax.swing.*;
-//import com.example.demo.predictivekeyboard;
-//import com.example.demo.SuggestionEngine;
-//import org.apache.pdfbox.Loader;
-//import org.apache.pdfbox.pdmodel.PDDocument;
-//import org.apache.pdfbox.pdmodel.interactive.form.PDField;
-//import org.apache.pdfbox.text.PDFTextStripper;
+import com.example.demo.model.resume;
 
 @SuppressWarnings("serial")
 public class ResumeGUI3 extends JFrame implements ActionListener {
@@ -126,10 +119,7 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 
 			res.setName(name);
 			res.setPhone(phone);
-			res.setskill1(skill1);
 			res.setSummary(summary);
-			res.setskill2(skill2);
-			res.setskill3(skill3);
 
 			String a = String.valueOf(id);
 
@@ -149,7 +139,6 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Resume created successfully.");
 				conn.close();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Failed to create resume: " + e1.getMessage());
 			}
@@ -195,20 +184,16 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 				ResultSet res1 = stmt1.executeQuery();
 
 				int id = Integer.parseInt(res1.getString("id"));
-				resu.setId((long)id);
+				resu.setId(id);
 				resu.setName(res1.getString("name"));
 				resu.setPhone(res1.getString("phone"));
 				resu.setSummary(res1.getString("summary"));
-				resu.setskill1(res1.getString("skill1"));
-				resu.setskill2(res1.getString("skill2"));
-				resu.setskill3(res1.getString("skill3"));
 
 				ans.add(resu);
 
 			}
 			conn.close();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Failed to create resume: " + e1.getMessage());
 		}
