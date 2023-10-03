@@ -1,4 +1,4 @@
-package com.example.demo;
+package main.view;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.model.resume;
+import main.model.Resume;
 
 @SuppressWarnings("serial")
 public class ResumeGUI3 extends JFrame implements ActionListener {
@@ -115,7 +115,7 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 			String summary = summaryField.getText();
 
 			// Saving to the database
-			resume res = new resume();
+			Resume res = new Resume();
 
 			res.setName(name);
 			res.setPhone(phone);
@@ -167,9 +167,9 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 
 	}
 
-	public List<resume> Search(String term) {
+	public List<Resume> Search(String term) {
 
-		List<resume> ans = new ArrayList<>();
+		List<Resume> ans = new ArrayList<>();
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ResumeFinale", "root", "1234");
 			String query = "Select id from Resume where skill1 like ?";
@@ -177,7 +177,7 @@ public class ResumeGUI3 extends JFrame implements ActionListener {
 			stmt.setString(1, term);
 			ResultSet res = stmt.executeQuery();
 			while (res.next()) {
-				resume resu = new resume();
+				Resume resu = new Resume();
 				String query1 = "Select * from Resume where id LIKE ?";
 				PreparedStatement stmt1 = conn.prepareStatement(query1);
 				stmt1.setString(1, res.getString("id"));

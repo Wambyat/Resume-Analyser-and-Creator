@@ -1,4 +1,4 @@
-package com.example.demo;
+package main.controller;
 import java.util.*;
 
 public class SuggestionEngine {
