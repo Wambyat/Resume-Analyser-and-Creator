@@ -1,4 +1,4 @@
-package main.model;
+package maincode.main.model;
 import java.util.Date;
 
 public class Experience {
@@ -9,11 +9,11 @@ public class Experience {
     private String description;
 
     public Experience() {
-        this.setTitle("Intern");
-        this.setCompany("Company money");
+        this.setTitle("Default Title");
+        this.setCompany("Default Company");
         this.setStartDate(new Date());
         this.setEndDate(new Date());
-        this.setDescription("Donkey work");
+        this.setDescription("Default work experience.");
     }
 
     public Experience(String Title, String Company, Date startDate, Date endDate, String description) {
@@ -65,6 +65,6 @@ public class Experience {
     }
 
     public String toString() {
-        return "Worked at " + Company + " as a " + Title + " from " + startDate + " to " + endDate + ". " + description;
+        return "Worked at " + Company + " as a " + Title + " from " + startDate + " to " + endDate + ".\n" + description;
     }
 }

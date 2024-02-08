@@ -1,37 +1,35 @@
-package main.controller;
+package maincode.main.controller;
 import java.util.*;
+//No touchy! Some wierd code :(
 
 public class SuggestionEngine {
-	
-	class TrieNode {
-		
-	    char value;																		// alphabet value associated to this node (a-z)
-	    boolean isEnd;																	// boolean value to determine whether this is the end of a word
-	    int count;																		// number of times this node has been visited through
-	    HashMap<Character, TrieNode> children;											// an array of Nodes that are the children of that current Node	
-
-	    public TrieNode() { }
-	 
-	    public TrieNode(char c){
-	        this.value = c;
-	        this.count = 0;
-	        this.isEnd = false;
-	        this.children = new HashMap<Character, TrieNode>();
-	    }
-	    
-	    public char getChar()
-	    {
-	    	return this.value;
-	    }
-	    	    	    	    
-	}
-	
+    class TrieNode {
+        char value;                                                                        // alphabet value associated to this node (a-z)
+        boolean isEnd;                                                                    // boolean value to determine whether this is the end of a word
+        int count;                                                                        // number of times this node has been visited through
+        HashMap<Character, TrieNode> children;                                            // an array of Nodes that are the children of that current Node    
+        public TrieNode() { }
+        public TrieNode(char c){
+            this.value = c;
+            this.count = 0;
+            this.isEnd = false;
+            this.children = new HashMap<Character, TrieNode>();
+        }
+        
+        public char getChar()
+        {
+            return this.value;
+        }
+                                
+    }
+    
     private TrieNode root;
  
     public SuggestionEngine() {
         root = new TrieNode(' ');
-
-		String[] words = { "a", "able", "about", "above", "according", "accordingly", "across",
+        //This makes the editor lag -_-. 
+        //TODO: SQL fix pls
+        String[] words = { "a", "able", "about", "above", "according", "accordingly", "across",
                 "actually", "after", "afterwards", "again", "against", "all", "allow", "allows", "almost", "alone",
                 "along", "already", "also", "although", "always","Achieved","Analyzed","Assisted","Awarded","Adapted",
                 "Authored","Assembled","Audited","Administered","Aligned", "am", "among", "amongst", "an", "and", "another",
@@ -123,8 +121,8 @@ public class SuggestionEngine {
  
     public void insert(String word) 
     {
-    	word = word.toLowerCase();
-    	
+        word = word.toLowerCase();
+        
         HashMap<Character, TrieNode> children = root.children;
         
         TrieNode current;      
@@ -155,8 +153,8 @@ public class SuggestionEngine {
  
     public boolean find(String word) 
     {
-    	word = word.toLowerCase();
-    	
+        word = word.toLowerCase();
+        
         TrieNode current = findNode(word);
  
         if(current != null && current.isEnd)
@@ -171,14 +169,14 @@ public class SuggestionEngine {
   
     public TrieNode findNode(String word)
     {
-    	
+        
         HashMap<Character, TrieNode> children = root.children;     
         TrieNode current = null;
         char c;
         
         for(int i = 0; i < word.length(); i++){
-        	
-        	c = word.charAt(i);
+            
+            c = word.charAt(i);
             
             if(children.containsKey(c))
             {
@@ -195,92 +193,92 @@ public class SuggestionEngine {
     }
                 
     public HashMap<String, Integer> sortByValueReverse(HashMap<String, Integer> hashMap)
-    {    	
-    	List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(hashMap.entrySet());
-    	
-    	Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
-    	{
-    		public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2)
-    		{
-    			return (o2.getValue().compareTo(o1.getValue()));
-    		}
-    	});
-    	
-    	HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
-    	
-    	for(Map.Entry<String, Integer> aa : list)
-    	{
-    		temp.put(aa.getKey(), aa.getValue());
-    	}
-    	
-    	return temp;
+    {        
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(hashMap.entrySet());
+        
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
+        {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2)
+            {
+                return (o2.getValue().compareTo(o1.getValue()));
+            }
+        });
+        
+        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        
+        for(Map.Entry<String, Integer> aa : list)
+        {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        
+        return temp;
     }   
   
     public void printRootChildren() 
     {
-    	System.out.println(root.children);
+        System.out.println(root.children);
     }
         
     public void preOrderTraversalHelper(List<String> listOfWords, TrieNode current, String prefix)
     {
-    	for(Map.Entry<Character, TrieNode> each : current.children.entrySet())
-    	{
-    		char temp = each.getKey();
-    		preOrderTraversalHelper(listOfWords, each.getValue(), prefix + temp);
-    		current = each.getValue();
-    		if(current.count > 0)
-    		{
-    			listOfWords.add(prefix + temp);
-    		}
-    	}    	
+        for(Map.Entry<Character, TrieNode> each : current.children.entrySet())
+        {
+            char temp = each.getKey();
+            preOrderTraversalHelper(listOfWords, each.getValue(), prefix + temp);
+            current = each.getValue();
+            if(current.count > 0)
+            {
+                listOfWords.add(prefix + temp);
+            }
+        }        
     }
     
     public List<String> preOrderTraversal(String prefix)
     {
-    	List<String> listOfWords = new ArrayList<String>();
-    	
-    	TrieNode lastCharNode = findNode(prefix);
-    	
-    	preOrderTraversalHelper(listOfWords, lastCharNode, prefix);
-    	
-    	return listOfWords;
+        List<String> listOfWords = new ArrayList<String>();
+        
+        TrieNode lastCharNode = findNode(prefix);
+        
+        preOrderTraversalHelper(listOfWords, lastCharNode, prefix);
+        
+        return listOfWords;
     }
 
     public List<String> getSuggestions(String prefix, int n )
     {
         n =3;
-    	if (prefix == null)
-    	{
-    		return new ArrayList<String>();
-    	}
-    	prefix = prefix.toLowerCase();
-    	
-    	List<String> listOfWords = preOrderTraversal(prefix);
-    	
-    	HashMap<String, Integer> counts = new HashMap<String, Integer>();
-    	
-    	for(String temp : listOfWords)
-    	{
-    		counts.put(temp, findNode(temp).count);
-    	}
-    	
-    	counts = sortByValueReverse(counts);
-    	    	    	
-    	List<String> topNWords = new ArrayList<String>();
-    	
-    	for(Map.Entry<String, Integer> entry : counts.entrySet())
-    	{
-    		if(n == 0)
-    		{
-    			break;
-    		}
-    		else
-    		{
-    			topNWords.add(entry.getKey());
-    			n--;
-    		}
-    	}
-    	   
-    	return topNWords;
+        if (prefix == null)
+        {
+            return new ArrayList<String>();
+        }
+        prefix = prefix.toLowerCase();
+        
+        List<String> listOfWords = preOrderTraversal(prefix);
+        
+        HashMap<String, Integer> counts = new HashMap<String, Integer>();
+        
+        for(String temp : listOfWords)
+        {
+            counts.put(temp, findNode(temp).count);
+        }
+        
+        counts = sortByValueReverse(counts);
+                        
+        List<String> topNWords = new ArrayList<String>();
+        
+        for(Map.Entry<String, Integer> entry : counts.entrySet())
+        {
+            if(n == 0)
+            {
+                break;
+            }
+            else
+            {
+                topNWords.add(entry.getKey());
+                n--;
+            }
+        }
+           
+        return topNWords;
     }
 }

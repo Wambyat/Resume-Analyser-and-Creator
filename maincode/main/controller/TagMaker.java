@@ -1,12 +1,10 @@
-package main.controller;
-
+package maincode.main.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import opennlp.tools.stemmer.snowball.SnowballStemmer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
@@ -22,7 +20,7 @@ public class TagMaker {
         summery = summery.replaceAll("\\p{Punct}", "");
         summery = summery.replaceAll("\\b\\w*\\d+\\w*\\b", "");
 
-        // This is a list of stop words. Probably better to import from a file.
+        // TODO: Pls SQL
         String[] stopWords = new String[] { "a", "able", "about", "above", "according", "accordingly", "across",
                 "actually", "after", "afterwards", "again", "against", "all", "allow", "allows", "almost", "alone",
                 "along", "already", "also", "although", "always", "am", "among", "amongst", "an", "and", "another",
@@ -85,7 +83,7 @@ public class TagMaker {
         summery = matcher.replaceAll("");
 
         // Loading the Tokenizer model
-        InputStream inputStream = new FileInputStream("en-token.bin");
+        InputStream inputStream = new FileInputStream("./maincode/main/controller/en-token.bin");
         TokenizerModel tokenModel = new TokenizerModel(inputStream);
         TokenizerME tokenizer = new TokenizerME(tokenModel);
 
@@ -105,9 +103,9 @@ public class TagMaker {
     }
     public static void main(String args[]) throws Exception
     {
-    	System.out.println("Howdy");
-    	TagMaker t = new TagMaker();
-    	System.out.print(t.getTags("Existing"));
-    	
+        System.out.println("Howdy");
+        TagMaker t = new TagMaker();
+        System.out.println("Input  String: Existing testing stuff uwus lmaos ig??? I dunno");
+        System.out.print("Output String: " + t.getTags("Existing testing stuff uwus lmaos ig??? I dunno"));
     }
 }

@@ -1,4 +1,4 @@
-package main.model;
+package maincode.main.model;
 import java.util.Date;
 
 public class Education {
@@ -10,12 +10,12 @@ public class Education {
     private String description;
 
     public Education() {
-        this.setDegree("btech");
-        this.setSubject("cse");
-        this.setSchool("carmel");
+        this.setDegree("Default Degree");
+        this.setSubject("Default Subject/ Specialization");
+        this.setSchool("Default School");
         this.setStartDate(new Date());
         this.setEndDate(new Date());
-        this.setDescription("Did a btech");
+        this.setDescription("Default education description.");
     }
 
     public Education(String Degree, String Subject, String School, Date startDate, Date endDate, String description) {
@@ -76,12 +76,7 @@ public class Education {
     }
 
     public String toString() {
-        return "Studied at " + this.School + " and was awarded a " + this.Degree + " in " + this.Subject + " (" + this.startDate + " - "
-                + this.endDate + "). " + this.description;
-    }
-    public static void main(String[] args)
-    {
-        Education e = new Education();
-        System.out.println(e.toString());
+        return "Education Institute: " + this.School + "\nDegree: " + this.Degree + "\nSubject: " + this.Subject + "Duration: " + this.startDate + " - "
+                + this.endDate + ".\nDescription: " + this.description;
     }
 }

@@ -1,4 +1,4 @@
-package main.model;
+package maincode.main.model;
 public class Skill {
 
     private String name;
@@ -6,9 +6,9 @@ public class Skill {
     private String description;
 
     public Skill() {
-        this.setName("Java");
+        this.setName("Default Skill");
         this.setDuration(1);
-        this.setDescription("I know Java");
+        this.setDescription("Default skill description.");
     }
 
     public Skill(String name, int dur, String desc) {
@@ -42,6 +42,6 @@ public class Skill {
     }
 
     public String toString() {
-        return this.name + " for " + this.duration + " years.\n" + this.description;
+        return "Skill Name: "+this.name + "\nDuration: " + this.duration + " years.\nDescription: " + this.description;
     }
 }

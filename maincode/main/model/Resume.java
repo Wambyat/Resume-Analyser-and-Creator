@@ -1,4 +1,4 @@
-package main.model;
+package maincode.main.model;
 import java.util.*;
 public class Resume {
     private int id;
@@ -10,10 +10,11 @@ public class Resume {
     private List<Education> Education;
 
     public Resume() {
+        // Get ID from SQL.
         this.setId(1);
-        this.setName("Ooga");
+        this.setName("Default Name");
         this.setPhone("1234567890");
-        this.setSummary("I workked Booga");
+        this.setSummary("Default resume summery.");
         this.setSkill(new ArrayList<Skill>());
         this.setEducation(new ArrayList<Education>());
         this.setExperience(new ArrayList<Experience>());
@@ -99,7 +100,7 @@ public class Resume {
     }
 
     public String toString() {
-        return "I am " + Name + "\n Ph No: " + Phone + "\n" + Education + "\n" + Experience + "\n" + Skills + "\n"
+        return "Name: " + Name + "\nPh No: " + Phone + "\n" + Education + "\n" + Experience + "\n" + Skills + "\n"
                 + Summary;
     }
 }
